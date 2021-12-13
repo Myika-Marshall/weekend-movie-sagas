@@ -17,7 +17,7 @@ function MovieItem({ movie }) {
     <li key={movie.id} onClick={() => handleSelectMovie(movie)}>
     Movie:{movie.movie_name} Genre: {movie.genre_name}
     </li>
-    ;
+    );
 }
 
 export default MovieItem;

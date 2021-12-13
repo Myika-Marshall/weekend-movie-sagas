@@ -36,7 +36,9 @@ const sagaMiddleware = createSagaMiddleware();
 const movies = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIES':
+            console.log('SET_MOVIES', action.payload)
             return action.payload;
+            
         default:
             return state;
     }
@@ -46,6 +48,7 @@ const movies = (state = [], action) => {
 const genres = (state = [], action) => {
     switch (action.type) {
         case 'SET_GENRES':
+            console.log('SET_GENRES:', action.payload)
             return action.payload;
         default:
             return state;

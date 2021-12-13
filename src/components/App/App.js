@@ -1,20 +1,20 @@
 import {HashRouter as Router, Route} from 'react-router-dom';
 import './App.css';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { useEffect } from 'react';
 
 import MovieList from '../MovieList/MovieList'
-import MovieDetail from '../MovieDetail/MovieDetail';
+import MovieDetails from '../MovieDetails/MovieDetails';
 import AddMovieForm from '../AddMovieForm/AddMovieForm';
 
 function App() {
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch({type: 'FETCH_MOVIES'});
-    dispatch({ type: 'FETCH_GENRES'})
-  })
+  // useEffect(() => {
+  //   dispatch({type: 'FETCH_MOVIES'});
+  //   dispatch({ type: 'FETCH_GENRES'})
+  // })
   
   return (
     <div className="App">
@@ -26,7 +26,7 @@ function App() {
         
         {/* Details page */}
         <Route path="/details">
-          <MovieDetail />
+          <MovieDetails />
         </Route>
 
         {/* Add Movie page */}

@@ -2,7 +2,10 @@ import {HashRouter as Router, Route} from 'react-router-dom';
 import './App.css';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+
 import MovieList from '../MovieList/MovieList'
+import MovieDetail from '../MovieDetail/MovieDetail';
+import AddMovieForm from '../AddMovieForm/AddMovieForm';
 
 function App() {
 
@@ -28,7 +31,7 @@ function App() {
 
         {/* Add Movie page */}
         <Route path="/addMovie">
-          <AddMovie />
+          <AddMovieForm />
         </Route>
       </Router>
     </div>

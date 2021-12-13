@@ -62,7 +62,7 @@ return (
         </select>
     </form>
 
-        <button onClick={handleAddMovieClick}>Add Movie!</button>
+        <button onClick={handleAddMovieClick}> Save Movie!</button>
     </div>
     );
 }

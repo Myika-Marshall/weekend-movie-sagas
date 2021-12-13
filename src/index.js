@@ -32,6 +32,44 @@ function* fetchAllMovies() {
         
 }
 
+// Grab Genres from the Database
+function* fetchAllGenres() {
+    try {
+        const genres = yield axios.get('/api/genre');
+        console.log('GET genres:', genres.data);
+        yield put({ type: 'SET_GENRES', payload: genres.data});
+    } catch(err) {
+        console.log('GET genres error');
+        
+    }
+}
+
+
+// Adding a new movie to the Database
+function* addMovie(action) {
+    try {
+        yield axios.post('/api/movie', action.payload);
+        yield put({ type: 'FETCH_MOVIES'})
+    } catch(err) {
+        console.log('POST error in addMovie', err);
+        
+    }
+}
+
+//Movie chosen
+const chosenMovie = (state=[], action) => {
+    switch (action.type){
+        case 'SET_CHOSEN_MOVIE':
+            console.log('Chosen Movie:', action.payload);
+            
+            return action.payload;
+        default:
+            return state;
+    }
+} 
+
+
+
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
@@ -63,6 +101,7 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        chosenMovie
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

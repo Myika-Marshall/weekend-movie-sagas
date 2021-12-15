@@ -20,22 +20,16 @@ function MovieList() {
 
     return (
         <main>
-            
-            <h1>MovieList</h1>
-            <button className="addButton" onClick={addMovieButton}>Add a movie</button>
-                {movies.map(movie, index => {
-                    return (
-                        <section className="movies">
-                        <MovieItem key={movies.id} movieItem={movies} />
-                            <h3>{movies.title}</h3>
-                            <img src={movies.poster} alt={movies.title}/>
-                        </section>
-                    );
-                    
-                })}
-            
-        </main>
-
+        <div className="head">
+        <h1>MovieList</h1>
+        <button className="addButton" onClick={addMovieButton}>Add a movie</button>
+        </div>
+        <section className="movies">
+        {movies.map((movie) => (
+            <MovieItem key={movie.id} movieItem={movie} />
+        ))}
+        </section>
+    </main>
     );
 }
 

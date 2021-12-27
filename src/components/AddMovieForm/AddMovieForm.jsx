@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 // Form to add a new movie with a genre
 function AddMovieForm() {
     useEffect(() => {

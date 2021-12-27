@@ -14,7 +14,7 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchMovies);
-    yield takeEvery('FETCH_GENRES', fetchGenres);
+    yield takeEvery('FETCH_DETAILS,', fetchDetails);
     yield takeEvery('ADD_MOVIES', addMovie);
 
 }
@@ -32,16 +32,16 @@ function* fetchMovies() {
         
 };
 
-// Grab Genres from the Database
-function* fetchGenres() {
+//GET movie details
+function* fetchDetails(action) {
     try {
-        const genres = yield axios.get('/api/genre');
-        console.log('GET genres:', genres.data);
-        yield put({ type: 'SET_GENRES', payload: genres.data});
+        // 
+        const details= yield axios.get(`/api/details/${action.payload}`)
+        console.log('GET details:', details.data)
+        yield put({type: 'SET_DETAILS', payload: details.data});
     } catch(err) {
-        console.log('GET genres error');
-        
-    }
+        console.log('fetchDetails error');
+    };
 }
 
 
@@ -49,7 +49,7 @@ function* fetchGenres() {
 function* addMovie(action) {
     try {
         yield axios.post('/api/movie', action.payload);
-        yield put({ type: 'FETCH_MOVIES'})
+        // yield put({ type: 'FETCH_MOVIES'})
     } catch(err) {
         console.log('POST error in addMovie', err);
         
@@ -57,16 +57,24 @@ function* addMovie(action) {
 }
 
 //Movie chosen
-const selectedMovie = (state=[], action) => {
+
+const selectedMovie = (state=[{ 
+    id: '',
+    name: '',
+    title: '',
+    poster: '',
+    description: '',
+    movie_id: '',
+    genre_id: ''
+}], action) => {
     switch (action.type){
-        case 'SET_CHOSEN_MOVIE':
-            console.log('Chosen Movie:', action.payload);
+        case 'SET_DETAILS':
+            console.log('Movie Details:', action.payload);
             
             return action.payload;
         default:
             return state;
-    }
-} 
+    }};
 
 
 
@@ -116,5 +124,4 @@ ReactDOM.render(
         <App />
         </Provider>
     </React.StrictMode>,
-    document.getElementById('root')
-);
+    document.getElementById('root'));

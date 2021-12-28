@@ -36,7 +36,7 @@ function* fetchMovies() {
 function* fetchDetails(action) {
     try {
         // 
-        const details= yield axios.get(`/api/details/${action.payload}`)
+        const details= yield axios.get(`/api/movie/details/${action.payload}`)
         console.log('GET details:', details.data)
         yield put({type: 'SET_DETAILS', payload: details.data});
     } catch(err) {
@@ -49,33 +49,12 @@ function* fetchDetails(action) {
 function* addMovie(action) {
     try {
         yield axios.post('/api/movie', action.payload);
-        // yield put({ type: 'FETCH_MOVIES'})
+        yield put({ type: 'FETCH_MOVIES'})
     } catch(err) {
         console.log('POST error in addMovie', err);
         
     }
 }
-
-//Movie chosen
-
-const selectedMovie = (state=[{ 
-    id: '',
-    name: '',
-    title: '',
-    poster: '',
-    description: '',
-    movie_id: '',
-    genre_id: ''
-}], action) => {
-    switch (action.type){
-        case 'SET_DETAILS':
-            console.log('Movie Details:', action.payload);
-            
-            return action.payload;
-        default:
-            return state;
-    }};
-
 
 
 // Create sagaMiddleware
@@ -104,6 +83,15 @@ const genres = (state = [], action) => {
     }
 };
 
+
+const selectedMovie = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_SELECTED_MOVIE':
+            return action.payload;
+            default:
+                return state;
+    }
+}
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({

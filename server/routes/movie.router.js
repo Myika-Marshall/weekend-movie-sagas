@@ -18,15 +18,14 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   console.log('movie.router is :',req.body);
-  // RETURNING "id" will give us back the id of the created movie
-  const insertMovieQuery = `
+  const movieQuery = `
   INSERT INTO "movies" ("title", "poster", "description")
   VALUES ($1, $2, $3)
-  RETURNING "id";`})
+  RETURNING "id";`
 
 
   // FIRST QUERY MAKES MOVIE
-  pool.query(insertMovieQuery, [req.body.title, req.body.poster, req.body.description])
+  pool.query(movieQuery, [req.body.title, req.body.poster, req.body.description])
   .then(result => {
     console.log('New Movie Id:', result.rows[0].id); //ID IS HERE!
     
@@ -52,5 +51,5 @@ router.post('/', (req, res) => {
     console.log(err);
     res.sendStatus(500)
   })
-
+})
 module.exports = router;

@@ -4,7 +4,7 @@ const pool = require('../modules/pool')
 
 
 // GET route for movies with details(id)
-router.get('/:id', (req, res) => {
+router.get('/details/:id', (req, res) => {
     console.log('in DETAILS ROUTER(ID', req.params);
     const selectedMovieId = req.params.id;
     const sqlText = `

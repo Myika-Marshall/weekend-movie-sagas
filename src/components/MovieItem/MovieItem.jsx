@@ -7,7 +7,7 @@ function MovieItem({ movieItem}) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const handleMovieSelection = (movieItem) => {
+    function handleMovieSelection(movie) {
     // store selected movie object in Redux
     dispatch({ type: 'SET_SELECTED_MOVIE', payload: movieItem});
     // go to details view
@@ -17,7 +17,7 @@ function MovieItem({ movieItem}) {
     return (
         <div className="moviePoster" key={movieItem.id}>
             <h3> {movieItem.title}</h3>
-            <img src={movieItem.poster}
+            <img src={movieItem.poster} alt={movieItem.title}
             onClick={() => handleMovieSelection(movieItem)}></img>
     </div> 
     );

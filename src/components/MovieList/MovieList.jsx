@@ -14,22 +14,23 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    const addMovieButton = () => {
-        history.push('/addMovie')
+    function addMovieButton(){
+        history.push(`/addMovie`)
     }
 
     return (
         <main>
-        <div className="head">
-        <h1>MovieList</h1>
-        <button className="addButton" onClick={addMovieButton}>Add a movie</button>
-        </div>
-        <section className="movies">
-        {movies.map((movie) => (
-            <MovieItem key={movie.id} movieItem={movie} />
-        ))}
-        </section>
-    </main>
+            <h1>MovieList</h1>
+            <button onClick={()=>{addMovieButton()}}>Add a Movie!</button>
+            <section className="movies">
+                {movies.map(movie => {
+                    return (
+                        <MovieItem key={movie.id} movieItem={movie}/>
+                    );
+                })}
+            </section>
+        </main>
+
     );
 }
 

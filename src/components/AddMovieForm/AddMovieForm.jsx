@@ -4,23 +4,27 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 // Form to add a new movie with a genre
 function AddMovieForm() {
+    useEffect(() => {
+        dispatch({ type: 'FETCH_GENRES' });
+    }, []);
 
-const genres = useSelector(store => store.genres);
-const dispatch = useDispatch();
-const history = useHistory();
+    const genres = useSelector(store => store.genres);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
-let [title, setTitle] = useState('');
-let [poster, setPoster] = useState('');
-let [description, setDescription] = useState('');
-let [genre_id, setGenre_id] = useState(0);
+    let [title, setTitle] = useState('');
+    let [poster, setPoster] = useState('');
+    let [description, setDescription] = useState('');
+    let [genre, setGenre] = useState(0);
+
 
   // handle form submission
-const handleAddMovieClick = (e) => {
-    e.preventDefault();
-    console.log('new movie', title, poster, description, genre_id);
-    dispatch({ type: 'ADD_MOVIE', payload: { title, poster, description, genre_id }});
-    history.push('/');
-}
+    const handleAddMovieClick = (e) => {
+        // e.preventDefault()
+        console.log('new movie', title, poster, description, genre);
+        dispatch({ type: 'ADD_MOVIE', payload: { title, poster, description, genre }});
+        history.push('/');
+    }
 
     
 
@@ -53,8 +57,8 @@ return (
 
     
         {/* drop down genre names */}
-            <select value={genre_id} 
-                onChange={(e) => setGenre_id(e.target.value)}>
+            <select value={genre} 
+                onChange={(e) => setGenre(e.target.value)}>
                 <option disabled value='0'>
                 Pick a genre!
                 </option>
@@ -68,11 +72,10 @@ return (
                         );
                     })}
             </select>
+        </form>
             <button onClick={()=>{handleAddMovieClick()}}> Save Movie!</button>
             <button onClick={()=>{returnToHomePage()}}>Return to Movie List</button>
-        </form>
-
-            </div>
+        </div>
         );
                 
 }

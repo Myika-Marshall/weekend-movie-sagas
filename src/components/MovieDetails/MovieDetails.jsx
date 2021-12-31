@@ -31,11 +31,11 @@ function MovieDetails() {
         <img src={movie.poster} alt= {movie.title}></img>
         <h3>{movie.description}</h3>
         <button onClick={()=>{returnToHomePage()}}>Back</button>
-        {movie.genres.map((genres)=>{
+        {/* {movie.genres.map((genres)=>{
             return (
                 <li>{genre}</li>
             )}
-        )}
+        )} */}
     </div>
 )
 }

@@ -7,11 +7,11 @@ function MovieItem({ movieItem}) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    function handleMovieSelection(movie) {
+    function handleMovieSelection(movieItem) {
     // store selected movie object in Redux
     dispatch({ type: 'SET_SELECTED_MOVIE', payload: movieItem});
     // go to details view
-    history.push('/details');
+    history.push(`/details/${movieItem.id}`);
     };
 
     return (

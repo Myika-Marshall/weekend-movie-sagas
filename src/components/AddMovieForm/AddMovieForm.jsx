@@ -1,28 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-
+import Button from '@mui/material/Button';
 // Form to add a new movie with a genre
 function AddMovieForm() {
     useEffect(() => {
-        dispatch({ type: 'FETCH_GENRES' });
+        // dispatch({ type: 'FETCH_GENRES' });
+        // dispatch ({ type: 'FETCH_MOVIES'});
     }, []);
 
-    const genres = useSelector(store => store.genres);
+    // const genres = useSelector(store => store.genres);
     const dispatch = useDispatch();
     const history = useHistory();
+    const genres = useSelector(store => store.genres);
+    
+
 
     let [title, setTitle] = useState('');
     let [poster, setPoster] = useState('');
     let [description, setDescription] = useState('');
-    let [genre, setGenre] = useState(0);
+    let [genre, setGenre] = useState('');
 
 
   // handle form submission
     const handleAddMovieClick = (e) => {
         // e.preventDefault()
-        console.log('new movie', title, poster, description, genre);
-        dispatch({ type: 'ADD_MOVIE', payload: { title, poster, description, genre }});
+        const addedMovie = { title:title, poster:poster, description:description, genre:genre}
+        dispatch({ type: 'ADD_MOVIES', payload: addedMovie });
+        console.log('new movie:', addedMovie);
         history.push('/');
     }
 
@@ -49,32 +54,31 @@ return (
                 placeholder="poster url" 
                 onChange={(e) => setPoster(e.target.value)} />
 
-            <input
+            <textarea
                 type="text"
-                vslue={description}
+                value={description}
                 placeholder='Movie Description'
                 onChange={(e)=> setDescription(e.target.value)}/>
 
     
-        {/* drop down genre names */}
-            <select value={genre} 
-                onChange={(e) => setGenre(e.target.value)}>
-                <option disabled value='0'>
-                Pick a genre!
-                </option>
-                    {genres.map((genre) => {
-                        return (
-                        <option 
-                        key={genre.id} 
-                        value={genre.id}>
-                        {genre.name}
-                        </option>
-                        );
-                    })}
-            </select>
+        {/* drop down genre names 
+        <select 
+            placeholder="Choose a Genre"
+            type="text"
+            value={genre}
+            onChange={(event) => setGenre(event.target.value)} 
+            className="pick-genre">
+            {genres.map((genre) => {
+            return(<option key={genre.id} value={genre.id}>{genre.name}</option>);
+            })}
+        </select> */}
         </form>
-            <button onClick={()=>{handleAddMovieClick()}}> Save Movie!</button>
-            <button onClick={()=>{returnToHomePage()}}>Return to Movie List</button>
+            <Button 
+            variant="contained"
+            onClick={()=>{handleAddMovieClick()}}> Save Movie!</Button>
+            <Button 
+            variant="contained"
+            onClick={()=>{returnToHomePage()}}>Cancel</Button>
         </div>
         );
                 

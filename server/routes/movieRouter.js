@@ -4,8 +4,9 @@ const pool = require('../modules/pool')
 
 router.get('/', (req, res) => {
 
-  const query = `SELECT * FROM movies ORDER BY "title" ASC`;
-  pool.query(query)
+  const sqlText = 
+  `SELECT * FROM movies ORDER BY "title" ASC`;
+  pool.query(sqlText)
     .then( result => {
       res.send(result.rows);
     })
@@ -17,15 +18,15 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log('movie.router is :',req.body);
-  const movieQuery = `
+  // console.log('movie.router is :',req.body);
+  const insertMovieQuery = `
   INSERT INTO "movies" ("title", "poster", "description")
   VALUES ($1, $2, $3)
   RETURNING "id";`
 
 
   // FIRST QUERY MAKES MOVIE
-  pool.query(movieQuery, [req.body.title, req.body.poster, req.body.description])
+  pool.query(insertMovieQuery, [req.body.title, req.body.poster, req.body.description])
   .then(result => {
     console.log('New Movie Id:', result.rows[0].id); //ID IS HERE!
     
